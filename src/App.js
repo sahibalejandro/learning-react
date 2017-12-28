@@ -17,8 +17,11 @@ class App extends React.Component {
         };
 
         this.handleAddFish = this.handleAddFish.bind(this);
+        this.handleUpdateFish = this.handleUpdateFish.bind(this);
+        this.handleDeleteFish = this.handleDeleteFish.bind(this);
         this.handleLoadSampleFishes = this.handleLoadSampleFishes.bind(this);
         this.handleAddToOrder = this.handleAddToOrder.bind(this);
+        this.handleDeleteOrder = this.handleDeleteOrder.bind(this);
     }
 
     componentWillMount() {
@@ -51,14 +54,37 @@ class App extends React.Component {
         this.setState({fishes});
     }
 
+    handleUpdateFish(key, updatedFish) {
+        const fishes = {...this.state.fishes};
+        fishes[key] = updatedFish;
+
+        this.setState({fishes});
+    }
+
+    handleDeleteFish(key) {
+        const fishes = {...this.state.fishes};
+        fishes[key] = null;
+
+        this.setState({fishes});
+    }
+
     handleLoadSampleFishes(e) {
         e.preventDefault();
+
         this.setState({fishes: sampleFishes});
     }
 
     handleAddToOrder(key) {
         const order = {...this.state.order};
         order[key] = order[key] + 1 || 1;
+
+        this.setState({order});
+    }
+
+    handleDeleteOrder(key) {
+        const order = {...this.state.order};
+        delete order[key];
+
         this.setState({order});
     }
 
@@ -68,7 +94,8 @@ class App extends React.Component {
                 <Fish key={key}
                     fishKey={key}
                     details={this.state.fishes[key]}
-                    onAddToOrder={this.handleAddToOrder} />
+                    onAddToOrder={this.handleAddToOrder}
+                />
             )
         );
 
@@ -78,8 +105,14 @@ class App extends React.Component {
                     <Header tagline="Fresh Seafood Market" />
                     <ul className="list-of-fishes">{fishes}</ul>
                 </div>
-                <Order fishes={this.state.fishes} order={this.state.order} />
-                <Inventory onLoadSampleFishes={this.handleLoadSampleFishes} onAddFish={this.handleAddFish}/>
+                <Order fishes={this.state.fishes} order={this.state.order} onDeleteOrder={this.handleDeleteOrder}/>
+                <Inventory
+                    onLoadSampleFishes={this.handleLoadSampleFishes}
+                    onAddFish={this.handleAddFish}
+                    onUpdateFish={this.handleUpdateFish}
+                    onDeleteFish={this.handleDeleteFish}
+                    fishes={this.state.fishes}
+                />
             </div>
         );
     }
