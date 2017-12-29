@@ -1,6 +1,10 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 export default class AddFishForm extends React.Component {
+    static propTypes = {
+        onAddFish: PropTypes.func.isRequired
+    }
 
     handleSubmit(e) {
         e.preventDefault();

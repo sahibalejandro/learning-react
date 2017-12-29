@@ -5,8 +5,12 @@ import Inventory from './components/Inventory';
 import Fish from './components/Fish';
 import sampleFishes from './sample-fishes';
 import rebase from './rebase';
+import PropTypes from 'prop-types';
 
 class App extends React.Component {
+    static propTypes = {
+        match: PropTypes.object.isRequired
+    }
 
     constructor(props) {
         super(props);
@@ -116,6 +120,6 @@ class App extends React.Component {
             </div>
         );
     }
-}
+};
 
 export default App;

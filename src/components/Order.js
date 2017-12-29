@@ -1,8 +1,15 @@
 import React from 'react';
 import {formatPrice} from '../helpers';
 import {CSSTransitionGroup} from 'react-transition-group';
+import PropTypes from 'prop-types';
 
 class Order extends React.Component {
+    static propTypes = {
+        fishes: PropTypes.object.isRequired,
+        order: PropTypes.object.isRequired,
+        onDeleteOrder: PropTypes.func.isRequired
+    }
+
     constructor(props) {
         super(props);
         this.renderOrder = this.renderOrder.bind(this);
@@ -29,8 +36,8 @@ class Order extends React.Component {
                         component="span"
                         className="count"
                         transitionName="count"
-                        transitionEnterTimeout="250"
-                        transitionLeaveTimeout="250"
+                        transitionEnterTimeout={250}
+                        transitionLeaveTimeout={250}
                     >
                         <span key={count}>{count}</span>
                     </CSSTransitionGroup>
